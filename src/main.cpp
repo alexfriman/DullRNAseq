@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
 				char* sendReadsBuffer = new char[Readsbuffersize];
 				strcpy(sendReadsBuffer, allReads[i].c_str());
 				MPI_Send(sendReadsBuffer,Readsbuffersize, MPI_CHAR,  i,READS_TAG, MPI_COMM_WORLD);
+				printf("Rank 0 has sent %lu byte of fastQ to rank %d",Readsbuffersize, i);
 				allReads[i].erase();
 				delete sendReadsBuffer;
 			}
