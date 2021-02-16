@@ -54,10 +54,10 @@ int main(int argc, char *argv[])
 			}
 			for (int i=1; i<size;i++){ 
 				Readsbuffersize=allReads[i].size();
-				char* sendReadsBuffer = new char[Readsbuffersize];
+				char* sendReadsBuffer = new char[Readsbuffersize+1];
 				strcpy(sendReadsBuffer, allReads[i].c_str());
-				MPI_Send(sendReadsBuffer,Readsbuffersize, MPI_CHAR,  i,READS_TAG, MPI_COMM_WORLD);
-				printf("Rank 0 has sent %lu byte of fastQ to rank %d",Readsbuffersize, i);
+				MPI_Send(sendReadsBuffer,Readsbuffersize+1, MPI_CHAR,  i,READS_TAG, MPI_COMM_WORLD);
+				printf("Rank 0 has sent %lu byte of fastQ to rank %d\n",Readsbuffersize, i);
 				allReads[i].erase();
 				delete sendReadsBuffer;
 			}
@@ -65,8 +65,8 @@ int main(int argc, char *argv[])
 		//recieving reads
 		MPI_Recv(&Readsbuffersize,1, MPI_UNSIGNED_LONG, 0, READS_SIZE_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 		printf("Rank %d size of fastQ %lu\n", rank,Readsbuffersize);
-		char* myReadsBuffer= new char[Readsbuffersize];
-		MPI_Recv(myReadsBuffer,Readsbuffersize, MPI_CHAR, 0, READS_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+		char* myReadsBuffer= new char[Readsbuffersize+1];
+		MPI_Recv(myReadsBuffer,Readsbuffersize+1, MPI_CHAR, 0, READS_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 		myReads=myReadsBuffer;
 		delete myReadsBuffer;
 	}
