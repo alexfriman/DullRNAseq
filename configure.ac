@@ -8,9 +8,8 @@ AC_CONFIG_SRCDIR([src/genomeparser.cpp])
 #AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
  Makefile
- src/Makefile
 ])
-# Checks for programs.
+# Checks for programs. 
 AC_PROG_CXX([mpic++ mpic++.openmpi mpicxx mpicxx.openmpi mpig++])
 
 # Checks for libraries.
@@ -37,7 +36,7 @@ int main(void) {
 
 AC_LANG([C++])
 AC_CHECK_FUNCS([memset])
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
 #AM_INIT_AUTOMAKE([foreign])
 #AUTOMAKE_OPTIONS = foreign
 AC_MSG_CHECKING([whether $CXX finds fstream cstring string stdio.h vector mpi.h])
